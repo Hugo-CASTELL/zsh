@@ -1,0 +1,40 @@
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+setopt autocd
+setopt extendedglob
+setopt nomatch
+setopt notify
+setopt correct
+setopt interactivecomments
+
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt share_history
+setopt inc_append_history
+
+setopt prompt_subst
+setopt transient_rprompt
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
+autoload -Uz colors && colors
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats ' %F{blue}git:(%F{red}%b%F{blue})%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{blue}git:(%F{red}%b%F{blue}|%a)%f'
+zstyle ':vcs_info:git:*+*' check-for-changes true
+zstyle ':vcs_info:git:*+*' unstagedstr '%F{yellow}✗%F{blue}'
+
+precmd() { vcs_info }
+
+PROMPT='%(?:%F{green}➜%f:%F{red}➜%f) %F{cyan}%c%f${vcs_info_msg_0_} '
+# PROMPT='%(?:%{$fg_bold[green]%}➜%{$reset_color%} :%{$fg_bold[red]%}➜%{$reset_color%}) %{$fg[cyan]%}%c%{$reset_color%}'
+# PROMPT+='${vcs_info_msg_0_} '
