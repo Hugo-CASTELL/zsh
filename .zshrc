@@ -1,4 +1,5 @@
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+source $HOME/personal/config/zsh/path
+source $HOME/personal/config/zsh/keybinds
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -33,8 +34,8 @@ zstyle ':vcs_info:git:*' actionformats ' %F{blue}git:(%F{red}%b%F{blue}|%a)%f'
 zstyle ':vcs_info:git:*+*' check-for-changes true
 zstyle ':vcs_info:git:*+*' unstagedstr '%F{yellow}✗%F{blue}'
 
-precmd() { vcs_info }
+precmd() {
+  git rev-parse --is-inside-work-tree &>/dev/null && vcs_info || vcs_info_msg_0_=""
+}
 
 PROMPT='%(?:%F{green}➜%f:%F{red}➜%f) %F{cyan}%c%f${vcs_info_msg_0_} '
-# PROMPT='%(?:%{$fg_bold[green]%}➜%{$reset_color%} :%{$fg_bold[red]%}➜%{$reset_color%}) %{$fg[cyan]%}%c%{$reset_color%}'
-# PROMPT+='${vcs_info_msg_0_} '
