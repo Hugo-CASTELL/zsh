@@ -5,7 +5,6 @@ tmux-sessionizer() {
   # Tmux does not have the same session name
   if ! tmux has-session -t="$name" 2>/dev/null; then
     tmux new-session -ds "$name" -c "$dir"
-    return
   fi
 
   # Session exists
